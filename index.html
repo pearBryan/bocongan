@@ -127,8 +127,17 @@
 </footer>
 
 <script>
-    // PHP để lấy địa chỉ IP của người dùng
-    document.getElementById('ip').innerText = "<?php echo $_SERVER['REMOTE_ADDR']; ?>";
+    // Lấy địa chỉ IP từ API
+    fetch('https://api.ipify.org?format=json')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('ip').innerText = data.ip;
+        })
+        .catch(error => {
+            console.error('Lỗi khi lấy địa chỉ IP:', error);
+            document.getElementById('ip').innerText = 'Không thể lấy địa chỉ IP';
+        });
+
 
     // JavaScript để lấy thông tin hệ điều hành và trình duyệt
     var os = navigator.platform;
